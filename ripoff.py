@@ -65,7 +65,7 @@ def all_pairs(catalogue, distance=dist_combined, parallel=False):
         parallel computation
     """
     # Initialize all-pairs matrix
-    M = numpy.zeros((len(catalogue), len(catalogue)), dtype=np.float32)
+    M = numpy.zeros((len(catalogue), len(catalogue)), dtype=numpy.float32)
 
     if parallel:
         from multiprocessing import Pool
