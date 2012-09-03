@@ -2,23 +2,19 @@ import numpy
 import difflib
 
 
-def segmentation(source, mode=0):
+def segmentation(source, mode=1):
     """segmentation of a given string via shingling or splitting"""
 
-    # if shingling length is zero return naive segmentation via split
-    if mode == 0:
-        return source.split()
+    segments = source.split()
 
     # else compute shingling list with maximum word length of "mode"
-    else:
+    result = []
 
-        result = []
+    for length in range(1, mode + 1):
+        for index in range(len(segments) - length):
+                result.append(tuple(segments[index: index + length]))
 
-        for length in range(1, mode + 1):
-            for index in range(len(source) - length):
-                result.append(source[index: index + length])
-
-        return result
+    return result
 
 
 def dist_jaccard(source0, source1, mode=0):
@@ -51,6 +47,5 @@ def dist_combined(source0, source1):
 
 
 if __name__ == '__main__':
-    print dist_combined(
-        "mooo maaa miiiiii lalalala",
-        "lalalala mooo maaa miiiiii")
+    print segmentation(
+        "mooo maaa miiiiii lalalala", 2)
