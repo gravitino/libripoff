@@ -1,5 +1,5 @@
-import numpy as np
-import difflib as dl
+import numpy
+import difflib
 
 
 def _worker(x):
@@ -43,7 +43,7 @@ def dist_jaccard(source0, source1, mode=0):
 def dist_difflib(source0, source1):
     """popular Gestalt-algorithm implemented in difflib"""
 
-    match = dl.SequenceMatcher(a=source0, b=source1)
+    match = difflib.SequenceMatcher(a=source0, b=source1)
 
     return 1 - match.ratio()
 
@@ -65,7 +65,7 @@ def all_pairs(catalogue, distance=dist_combined, parallel=False):
         parallel computation
     """
     # Initialize all-pairs matrix
-    M = np.zeros((len(catalogue), len(catalogue)), dtype=np.float32)
+    M = numpy.zeros((len(catalogue), len(catalogue)), dtype=np.float32)
 
     if parallel:
         from multiprocessing import Pool
