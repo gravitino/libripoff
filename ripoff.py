@@ -22,7 +22,7 @@ def segmentation(source, mode=1):
     return result
 
 
-def dist_jaccard(source0, source1, mode=0):
+def dist_jaccard(source0, source1, mode=1):
     """popular similarity measure for two given sets"""
 
     # calculate shingling sets
@@ -47,7 +47,6 @@ def dist_combined(source0, source1):
     """combine all approaches to find different types of plagiarism"""
 
     return min(dist_jaccard(source0, source1, 1),
-               dist_jaccard(source0, source1, min(len(source0), len(source1))),
                dist_difflib(source0, source1))
 
 
@@ -80,9 +79,6 @@ def all_pairs(catalogue, distance=dist_combined, parallel=False):
 
 if __name__ == '__main__':
 
-    print dist_combined(
-        "mooo maaa miiiiii lalalala",
-        "lalalala mooo maaa miiiiii")
     catalogue = [
 """
 public class HelloWorld {
@@ -119,4 +115,6 @@ public class HelloUniverse {
 """]
     print all_pairs(catalogue)
     print all_pairs(catalogue, parallel=True)
+    print segmentation(catalogue[0])
+
 
