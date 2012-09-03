@@ -7,9 +7,7 @@ import pylab
 urls = [("http://www.gutenberg.org/files/21000/21000-0.txt",      "Faust 1"),
         ("http://www.gutenberg.org/cache/epub/2230/pg2230.txt",   "Faust 2"),
         ("http://www.gutenberg.org/cache/epub/6498/pg6498.txt",   "Kabale"),
-        ("http://www.gutenberg.org/cache/epub/6383/pg6383.txt",   "Orleans"),
-        ("http://www.gutenberg.org/cache/epub/6079/pg6079.txt",   "Winterma."),
-        ("http://www.gutenberg.org/cache/epub/24249/pg24249.txt", "Harzreise")]
+        ("http://www.gutenberg.org/cache/epub/6383/pg6383.txt",   "Orleans")]
 
 # get it from the interwebs
 catalogue = []
@@ -20,12 +18,11 @@ for url, name in urls:
     req = urllib2.Request(url, None, headers)
     catalogue.append(urllib2.urlopen(req).read())
 
-# define similarity measure
-def measure(x, y):
-    return rippoff.dist_jaccard(x, y, 4)
 
 # get similarity matrix
-M = ripoff.all_pairs(catalogue, distance=measure, parallel=True)
+M = ripoff.all_pairs(catalogue, 
+                     distance=ripoff.dist_jaccard, dist_kwargs={'mode': 2}, 
+                     parallel=True)
 
 # plot similarity matrix
 pylab.figure(1)
