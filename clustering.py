@@ -6,7 +6,8 @@ import pylab
 # some famous German literature
 urls = [("http://www.gutenberg.org/files/21000/21000-0.txt",    "Faust 1"),
         ("http://www.gutenberg.org/cache/epub/2230/pg2230.txt", "Faust 2"),
-        ("http://www.gutenberg.org/cache/epub/6649/pg6649.txt", "Schiller")]
+        ("http://www.gutenberg.org/cache/epub/6498/pg6498.txt", "Kabale"),
+        ("http://www.gutenberg.org/cache/epub/6383/pg6383.txt", "Orleans")]
 
 # get it from the interwebs
 catalogue = []
