@@ -4,14 +4,14 @@ import hcluster
 import pylab
 
 # some famous German literature
-urls = ["http://www.gutenberg.org/files/21000/21000-0.txt",    # faust 1
-        "http://www.gutenberg.org/cache/epub/2230/pg2230.txt", # faust 2
-        "http://www.gutenberg.org/cache/epub/6649/pg6649.txt"] # schiller
+urls = [("http://www.gutenberg.org/files/21000/21000-0.txt",    "Faust 1"),
+        ("http://www.gutenberg.org/cache/epub/2230/pg2230.txt", "Faust 2"),
+        ("http://www.gutenberg.org/cache/epub/6649/pg6649.txt", "Schiller")]
 
 # get it from the interwebs
 catalogue = []
 
-for url in urls:
+for url, name in urls:
 
     headers = { 'User-Agent' : 'Mozilla/5.0' }
     req = urllib2.Request(url, None, headers)
@@ -29,6 +29,7 @@ pylab.colorbar()
 # plot complete linkage
 pylab.figure(2)
 pylab.title("complete linkage clustering")
-hcluster.dendrogram(hcluster.linkage(hcluster.squareform(M), method='complete'))
+hcluster.dendrogram(hcluster.linkage(hcluster.squareform(M), method='complete'), 
+                    leaf_label_func=lambda i: urls[i][1])
 
 pylab.show()
