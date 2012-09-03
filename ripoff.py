@@ -44,7 +44,7 @@ def dist_difflib(source0, source1):
     return 1 - match.ratio()
 
 def dist_kolmogorov(source0, source1):
-    """approximate Kolmogorov distance"""
+    """approximate Kolmogorov distance via compression"""
 
     comp01 = len(bz2.compress(source0))
     comp10 = len(bz2.compress(source1))
