@@ -2,6 +2,12 @@ import numpy as np
 import difflib as dl
 
 
+def _worker(x):
+    '''special private worker function that needs to be importable
+    i and j are indices which need to be conserved in the return value'''
+    (f, i, j, a, b) = x
+    return i, j, f(a, b)
+
 def segmentation(source, mode=0):
     """segmentation of a given string via shingling or splitting"""
 
@@ -50,7 +56,70 @@ def dist_combined(source0, source1):
                dist_difflib(source0, source1))
 
 
+def all_pairs(catalogue, distance=dist_combined, parallel=False):
+    """Generate the all-pairs distance matrix for all elements in catalogue
+
+    distance: any distance function that accepts two words and
+        returns a similarity value between 0 and 1
+    parallel: use a Pool from the multiprocessing module for
+        parallel computation
+    """
+    # Initialize all-pairs matrix
+    M = np.zeros((len(catalogue), len(catalogue)), dtype=np.float32)
+
+    if parallel:
+        from multiprocessing import Pool
+        p = Pool()
+        for (i, j, d) in p.map(_worker,
+            ((distance, i, j, catalogue[i], catalogue[j])
+                for i in (range(0, len(catalogue)))
+                    for j in (range(i + 1, len(catalogue))))):
+            M[i][j] = M[j][i] = d
+    else:
+        for i in range(len(catalogue)):
+            for j in range(i + 1, len(catalogue)):
+                M[i][j] = M[j][i] = distance(catalogue[i], catalogue[j])
+
+    return M
+
+
 if __name__ == '__main__':
     print dist_combined(
         "mooo maaa miiiiii lalalala",
         "lalalala mooo maaa miiiiii")
+    catalogue = [
+"""
+public class HelloWorld {
+    // A program to display the message
+    // "Hello World!" on standard output
+
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}   // end of class HelloWorld
+""", """
+public class HelloWorld {
+    // A program to display the message
+
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}   // end of class HelloWorld
+""", """
+public class HelloWorld {
+
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}   // end of class HelloWorld
+""", """
+public class HelloUniverse {
+
+    public static void main(String[] args) {
+        String message = "Hello World!";
+        System.out.println(message);
+    }
+}
+"""]
+    print all_pairs(catalogue)
+    print all_pairs(catalogue, parallel=True)
