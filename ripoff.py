@@ -12,7 +12,7 @@ def segmentation(source, mode=1):
 
     segments = source.split()
 
-    # else compute shingling list with maximum word length of "mode"
+    # compute shingling list with maximum word length of "mode"
     result = []
 
     for length in range(1, mode + 1):
