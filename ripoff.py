@@ -54,7 +54,7 @@ def all_pairs(catalogue, distance=dist_combined, parallel=False):
     """Generate the all-pairs distance matrix for all elements in catalogue
 
     distance: any distance function that accepts two words and
-        returns a similarity value between 0 and 1
+        returns a similarity value between 0 and infinity
     parallel: use a Pool from the multiprocessing module for
         parallel computation
     """
