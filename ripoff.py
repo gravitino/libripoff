@@ -46,7 +46,7 @@ def dist_combined(source0, source1):
     """combine all approaches to find different types of plagiarism"""
 
     return min(dist_jaccard(source0, source1, 0),
-               dist_jaccard(source0, source1, max(len(source0), len(source1))),
+               dist_jaccard(source0, source1, min(len(source0), len(source1))),
                dist_difflib(source0, source1))
 
 print dist_combined(
