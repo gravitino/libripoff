@@ -49,6 +49,8 @@ def dist_combined(source0, source1):
                dist_jaccard(source0, source1, min(len(source0), len(source1))),
                dist_difflib(source0, source1))
 
-print dist_combined(
-    "mooo maaa miiiiii lalalala",
-    "lalalala mooo maaa miiiiii")
+
+if __name__ == '__main__':
+    print dist_combined(
+        "mooo maaa miiiiii lalalala",
+        "lalalala mooo maaa miiiiii")
