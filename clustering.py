@@ -19,7 +19,7 @@ for url, name in urls:
     catalogue.append(urllib2.urlopen(req).read())
 
 # get similarity matrix
-M = ripoff.all_pairs(catalogue, distance=ripoff.dist_jaccard, parallel=True)
+M = ripoff.all_pairs(catalogue, distance=ripoff.dist_jaccard, dist_kwargs={'mode': 2}, parallel=True)
 
 # plot similarity matrix
 pylab.figure(1)
