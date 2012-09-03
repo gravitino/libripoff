@@ -127,6 +127,6 @@ public class HelloUniverse {
 """]
     print all_pairs(catalogue)
     print all_pairs(catalogue, parallel=True)
-    print segmentation(catalogue[0])
+    print dist_kolmogorov(catalogue[0], catalogue[0])
 
 
