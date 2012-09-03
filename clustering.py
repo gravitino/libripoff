@@ -13,7 +13,9 @@ urls = [("http://www.gutenberg.org/files/21000/21000-0.txt",      "Faust 1"),
         ("http://www.gutenberg.org/cache/epub/7205/pg7205.txt",   "Zarathus."),
         ("http://www.gutenberg.org/cache/epub/7202/pg7202.txt",   "Ecce Homo"),
         ("http://www.gutenberg.org/cache/epub/5323/pg5323.txt",   "Effi Bri."),
-        ("http://www.gutenberg.org/files/26686/26686-0.txt",      "Birnbaum" )]
+        ("http://www.gutenberg.org/files/26686/26686-0.txt",      "Birnbaum" ),
+        ("http://www.gutenberg.org/files/21593/21593-0.txt",      "Urteil"),
+        ("http://www.gutenberg.org/cache/epub/22367/pg22367.txt", "Verwand.")]
 
 # get it from the interwebs
 catalogue = []
