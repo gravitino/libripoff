@@ -42,6 +42,12 @@ public class HelloUniverse {
     print all_pairs(catalogue, parallel=True)
     print all_pairs(catalogue, distance=kolmogorov)
 
+    print all_pairs([
+        'Something',
+        ''  # Nothing
+        ])
+
+
 #    d = pickle.load(open('submissions.pkl'))
 #
 #    for a in (a for a in d if a['submissions']):
