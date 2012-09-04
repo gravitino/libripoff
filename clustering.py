@@ -36,4 +36,5 @@ pylab.title("complete linkage clustering")
 hcluster.dendrogram(hcluster.linkage(hcluster.squareform(M), method='complete'), 
                     leaf_label_func=lambda i: urls[i][1])
 
+# finally show
 pylab.show()
