@@ -42,6 +42,7 @@ def gestalt(source0, source1):
 
 def kolmogorov(source0, source1):
     """approximate Kolmogorov distance via compression"""
+    source0, source1 = source0.encode('utf-8'), source1.encode('utf-8')
 
     comp01 = len(bz2.compress(source0))
     comp10 = len(bz2.compress(source1))
