@@ -3,6 +3,7 @@ import difflib
 
 __all__ = ['jaccard', 'gestalt', 'kolmogorov', 'combined']
 
+
 def segmentation(source, mode=1):
     """segmentation of a given string via shingling or splitting"""
 
@@ -45,7 +46,7 @@ def kolmogorov(source0, source1):
     comp01 = len(bz2.compress(source0))
     comp10 = len(bz2.compress(source1))
     comp11 = len(bz2.compress(source0 + source1))
-    
+
     return float(comp11 - min(comp01, comp10)) / max(comp01, comp10)
 
 

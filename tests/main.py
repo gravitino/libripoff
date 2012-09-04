@@ -4,8 +4,7 @@ from ripoff.distances import segmentation, kolmogorov
 
 if __name__ == '__main__':
 
-    catalogue = [
-"""
+    catalogue = ["""
 public class HelloWorld {
     // A program to display the message
     // "Hello World!" on standard output

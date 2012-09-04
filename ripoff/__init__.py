@@ -4,6 +4,7 @@ import numpy
 
 __all__ = ['all_pairs', 'dendrogram', 'distances']
 
+
 def _worker(x):
     '''special private worker function that needs to be importable
     i and j are indices which need to be conserved in the return value'''
@@ -21,7 +22,7 @@ def all_pairs(catalogue, distance=distances.combined, dist_kwargs=None, parallel
     parallel: use a Pool from the multiprocessing module for
         parallel computation
     """
-    if not dist_kwargs: dist_kwargs = dict()
+    dist_kwargs = dist_kwargs or dict()
     # Initialize all-pairs matrix
     M = numpy.zeros((len(catalogue), len(catalogue)), dtype=numpy.float32)
 
@@ -39,4 +40,3 @@ def all_pairs(catalogue, distance=distances.combined, dist_kwargs=None, parallel
                 M[i][j] = M[j][i] = distance(catalogue[i], catalogue[j])
 
     return M
-
