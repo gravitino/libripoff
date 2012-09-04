@@ -21,7 +21,7 @@ for url, name in urls:
 
 # get similarity matrix
 M = ripoff.all_pairs(catalogue, 
-                     distance=ripoff.dist_jaccard, dist_kwargs={'mode': 2}, 
+                     distance=ripoff.dist_kolmogorov, #dist_kwargs={'mode': 2}, 
                      parallel=True)
 
 # plot similarity matrix

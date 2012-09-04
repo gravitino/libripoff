@@ -1,3 +1,4 @@
+import bz2
 import numpy
 import difflib
 
@@ -42,13 +43,21 @@ def dist_difflib(source0, source1):
 
     return 1 - match.ratio()
 
+def dist_kolmogorov(source0, source1):
+    """approximate Kolmogorov distance"""
+
+    comp01 = len(bz2.compress(source0))
+    comp10 = len(bz2.compress(source1))
+    comp11 = len(bz2.compress(source0 + source1))
+    
+    return float(comp11 - min(comp01, comp10)) / max(comp01, comp10)
 
 def dist_combined(source0, source1):
     """combine all approaches to find different types of plagiarism"""
 
     return min(dist_jaccard(source0, source1, 1),
-               dist_difflib(source0, source1))
-
+               dist_difflib(source0, source1),
+               dist_kolmogorov(source0, source1))
 
 def all_pairs(catalogue, distance=dist_combined, dist_kwargs=None, parallel=False):
     """Generate the all-pairs distance matrix for all elements in catalogue
