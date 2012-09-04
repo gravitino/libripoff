@@ -1,5 +1,6 @@
 import pickle
 from ripoff import all_pairs
+from ripoff.distances import segmentation, kolmogorov
 
 if __name__ == '__main__':
 
@@ -37,12 +38,13 @@ public class HelloUniverse {
     }
 }
 """]
+    print segmentation(catalogue[0])
     print all_pairs(catalogue)
     print all_pairs(catalogue, parallel=True)
-    print segmentation(catalogue[0])
+    print all_pairs(catalogue, distance=kolmogorov)
 
-    d = pickle.load(open('submissions.pkl'))
-
-    for a in (a for a in d if a['submissions']):
-        catalogue = [s['source'] for s in a['submissions'] if s['source']]
-        print all_pairs(catalogue, parallel=True)
+#    d = pickle.load(open('submissions.pkl'))
+#
+#    for a in (a for a in d if a['submissions']):
+#        catalogue = [s['source'] for s in a['submissions'] if s['source']]
+#        print all_pairs(catalogue, parallel=True)

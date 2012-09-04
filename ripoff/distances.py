@@ -1,6 +1,7 @@
+import bz2
 import difflib
 
-__all__ = ['jaccard', 'gestalt', 'combined']
+__all__ = ['jaccard', 'gestalt', 'kolmogorov', 'combined']
 
 def segmentation(source, mode=1):
     """segmentation of a given string via shingling or splitting"""
@@ -38,8 +39,19 @@ def gestalt(source0, source1):
     return 1 - match.ratio()
 
 
+def kolmogorov(source0, source1):
+    """approximate Kolmogorov distance via compression"""
+
+    comp01 = len(bz2.compress(source0))
+    comp10 = len(bz2.compress(source1))
+    comp11 = len(bz2.compress(source0 + source1))
+    
+    return float(comp11 - min(comp01, comp10)) / max(comp01, comp10)
+
+
 def combined(source0, source1):
     """combine all approaches to find different types of plagiarism"""
 
     return min(jaccard(source0, source1, 1),
-               gestalt(source0, source1))
+               gestalt(source0, source1),
+               kolmogorov(source0, source1))
