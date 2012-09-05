@@ -29,6 +29,9 @@ def jaccard(source0, source1, mode=1):
     union = set0.union(set1)
     inter = set0.intersection(set1)
 
+    if len(union) == 0:
+        return float("infinity")
+
     return float(len(union) - len(inter)) / len(union)
 
 
