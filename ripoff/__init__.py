@@ -1,15 +1,15 @@
 from ripoff import distances
 from ripoff.clustering import dendrogram
 import numpy
+import logging
 
 __all__ = ['all_pairs', 'dendrogram', 'distances']
 
 
 def _worker(x):
-    '''special private worker function that needs to be importable
-    i and j are indices which need to be conserved in the return value'''
-    (f, i, j, a, b, kw) = x
-    return i, j, f(a, b, **kw)
+    '''special private worker function that needs to be importable'''
+    (f, a, b, kw) = x
+    return f(a, b, **kw)
 
 
 def all_pairs(catalogue, distance=distances.combined, dist_kwargs=None, parallel=False):
@@ -26,17 +26,17 @@ def all_pairs(catalogue, distance=distances.combined, dist_kwargs=None, parallel
     # Initialize all-pairs matrix
     M = numpy.zeros((len(catalogue), len(catalogue)), dtype=numpy.float32)
 
+    indices = [(i, j) for i in range(len(catalogue)) for j in range(i + 1, len(catalogue))]
+
     if parallel:
         from multiprocessing import Pool
         p = Pool()
-        for (i, j, d) in p.map(_worker,
-            ((distance, i, j, catalogue[i], catalogue[j], dist_kwargs)
-                for i in (range(0, len(catalogue)))
-                    for j in (range(i + 1, len(catalogue))))):
+        for (i, j), d in zip(indices, p.map(_worker,
+            ((distance, catalogue[i], catalogue[j], dist_kwargs)
+                for i, j in indices))):
             M[i][j] = M[j][i] = d
     else:
-        for i in range(len(catalogue)):
-            for j in range(i + 1, len(catalogue)):
-                M[i][j] = M[j][i] = distance(catalogue[i], catalogue[j])
+        for i, j in indices:
+            M[i][j] = M[j][i] = distance(catalogue[i], catalogue[j])
 
     return M
