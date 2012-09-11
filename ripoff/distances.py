@@ -1,3 +1,8 @@
+'''Different distance measures for use in the all_pairs function
+
+@author: gravitino
+'''
+
 import bz2
 import difflib
 
@@ -54,9 +59,9 @@ def kolmogorov(source0, source1):
     return float(comp11 - min(comp01, comp10)) / max(comp01, comp10)
 
 
-def combined(source0, source1):
+def combined(source0, source1, jaccard_mode=1):
     """combine all approaches to find different types of plagiarism"""
 
-    return min(jaccard(source0, source1, 1),
+    return min(jaccard(source0, source1, jaccard_mode),
                gestalt(source0, source1),
                kolmogorov(source0, source1))
