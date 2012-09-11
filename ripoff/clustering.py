@@ -1,18 +1,24 @@
-from warnings import warn
+'''
+If you want to use the dendrogram function in a server environment,
+you have to make sure you load the 'Agg' backend for matplotlib
+*before* importing this module!
+
+I.e. you have to do something like:
+
+    import matplotlib
+    matplotlib.use('Agg')  # Only backend available in server environments
+    from ripoff import dendrogram
+
+@author: moschlar
+'''
+
 try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
 
-try:
-    import matplotlib
-    matplotlib.use('Agg')  # Only backend available in server environments
-    import matplotlib.pylab as pylab
-except ImportError as e:
-    warn('%s: Rendering of diagrams is not possible' % e.message)
-    matlpotlib = pylab = False
+import pylab
 import hcluster
-#import ripoff
 
 
 def cluster(M, method='complete'):

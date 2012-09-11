@@ -1,5 +1,23 @@
+'''
+This example shows how to cluster the all_pairs distance matrix
+as a dendrogram figure with the help of hcluster.
+
+Some classical german literature is used as dummy data, but it
+shows interesting thought expectable results.
+
+*Important:*
+This is an example for using pylab interactively with a GUI!
+If you want to use the dendrogram as a plain image file
+(e.g. for serving the image on a web page), refer to the comment
+in the file ripoff/clustering.py for instructions on how to configure
+the correct matplotlib backend.
+
+@author: gravitino
+'''
+
+from ripoff import all_pairs, distances
+from ripoff.clustering import cluster
 import urllib2
-import ripoff
 import hcluster
 import pylab
 
@@ -26,10 +44,10 @@ for url, name in urls:
     catalogue.append(urllib2.urlopen(req).read())
 
 # calc similarity matrix
-M = ripoff.all_pairs(catalogue,
-                     distance=ripoff.distances.jaccard,
-                     dist_kwargs={'mode': 1},
-                     parallel=True)
+M = all_pairs(catalogue,
+    distance=distances.jaccard,
+    dist_kwargs=dict(mode=1),
+    parallel=True)
 
 # plot similarity matrix
 pylab.figure(1)
@@ -40,8 +58,7 @@ pylab.colorbar()
 # plot complete linkage
 pylab.figure(2)
 pylab.title("complete linkage clustering")
-hcluster.dendrogram(hcluster.linkage(hcluster.squareform(M), method='complete'),
-                    leaf_label_func=lambda i: urls[i][1])
+hcluster.dendrogram(cluster(M, method='complete'), leaf_label_func=lambda i: urls[i][1])
 
 # finally show
 pylab.show()
