@@ -1,6 +1,7 @@
-import pickle
-from ripoff import all_pairs
-from ripoff.distances import segmentation, kolmogorov
+'''Some basic example calls for the all_pairs method'''
+
+from ripoff import all_pairs, distances
+#import pickle
 
 if __name__ == '__main__':
 
@@ -37,16 +38,11 @@ public class HelloUniverse {
     }
 }
 """]
-    print segmentation(catalogue[0])
     print all_pairs(catalogue)
     print all_pairs(catalogue, parallel=True)
-    print all_pairs(catalogue, distance=kolmogorov)
+    print all_pairs(catalogue, distance=distances.kolmogorov)
 
-    print all_pairs([
-        'Something',
-        ''  # Nothing
-        ])
-
+# Example code for loading a pickle file of submissions
 
 #    d = pickle.load(open('submissions.pkl'))
 #
