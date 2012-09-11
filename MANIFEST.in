@@ -1,0 +1,4 @@
+include README.md
+recursive-include examples *
+recursive-include tests *
+global-exclude *.pyc

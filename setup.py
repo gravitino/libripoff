@@ -14,6 +14,7 @@ setup(
     license = "BSD",
     url = "https://github.com/gravitino/libripoff",
     packages = ["ripoff"],
+    test_suite='tests',
     classifiers = [
         "Development Status :: 4 - Beta",
         "Topic :: Education",
