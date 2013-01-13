@@ -25,18 +25,18 @@ def cluster(M, method='complete'):
     return hcluster.linkage(hcluster.squareform(M), method=method)
 
 
-def dendrogram(M, method='complete', **kw):
+def dendrogram(M, method='complete', title='complete linkage clustering', **kw):
     s = StringIO.StringIO()
-    if pylab:
-        try:
-            pylab.figure()
-            pylab.title('complete linkage clustering')
-            hcluster.dendrogram(cluster(M, method), **kw)
-        except:
-            pass
-        else:
-            pylab.savefig(s, format='png')
-            s.seek(0)
-        finally:
-            pylab.close()
+    pylab.figure()
+    if title:
+        pylab.title(title)
+    try:
+        hcluster.dendrogram(cluster(M, method), **kw)
+    except ValueError:
+        # Empty distance matrix
+        pass
+    finally:
+        pylab.savefig(s, format='png')
+        s.seek(0)
+        pylab.close()
     return s

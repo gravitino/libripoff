@@ -13,7 +13,7 @@ except:
 
 setup(
     name="libripoff",
-    version="0.2",
+    version="0.2.1",
     author="Christian Hundt, Moritz Schlarb",
     author_email="hundt.christian@gmail.com, mail@moritz-schlarb.de",
     description="simple library to detect plagiarism in source code",
